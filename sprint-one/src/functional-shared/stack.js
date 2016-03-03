@@ -13,7 +13,7 @@ var Stack = function() {
 
 var stackMethods = {};
 
-stackMethods.push = function(value){
+stackMethods.push = function(value) {
   this.storage[this.counter] = value;
   return this.counter++;
 };
