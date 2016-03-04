@@ -3,39 +3,44 @@ var LinkedList = function() {
   list.head = null;
   list.tail = null;
 
-  var name = "node";
-  var counter = 0;
- 
-
   list.addToTail = function(value) {
-    // Declare variable that initates Node
-    var node = this['node' + counter] = new Node(value);
 
-    //list.variable = variable;
+    var node = Node(value);
+    var currentHead = this.head;
+    var currentTail = this.tail; 
 
-    //Do we have a list.head?
-    if (this.tail === null) {
-      //If not, list.head == list.variable
+    if (list.head === null) {
+      this.head = node;
       this.tail = node;
-
-
-    } else {
-      //Set list.variable.next = list.tail
-      
-    }
-
-
-
-    // Set list.tail to list.variable
-    counter++;
+    } else if (this.head !== null) {
+      this.tail.next = node;
+      this.tail = node;
+    } 
   };
 
   list.removeHead = function() {
-
+    if (this.head === null) {
+      return;
+    } 
+    var result = this.head.value;
+    this.head = this.head.next;
+    return result;
   };
 
   list.contains = function(target) {
-
+    var currentNode = this.head;
+    var result = false;
+    
+    while (currentNode.next !== null) {
+      if (currentNode.value === target) {
+        result = true;
+      }
+      currentNode = currentNode.next;
+    }
+    if (currentNode.value === target) {
+      result = true;
+    }
+    return result;
   };
 
   return list;
@@ -46,6 +51,9 @@ var Node = function(value) {
 
   node.value = value;
   node.next = null;
+  //
+
+  //
 
   return node;
 };
