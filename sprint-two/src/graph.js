@@ -17,9 +17,9 @@ Graph.prototype.addNode = function(node) {
 // ------------------------
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
 Graph.prototype.contains = function(node) {
-  if (this.storage[node]){
+  if (this.storage[node]) {
     return true;
-  } else{
+  } else {
     return false;
   }
 };
@@ -33,7 +33,7 @@ Graph.prototype.removeNode = function(node) {
 // ------------------------
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode) {
-  if(this.storage[fromNode].edges[toNode]){
+  if (this.storage[fromNode].edges[toNode]) {
     return true;
   } else {
     return false;
