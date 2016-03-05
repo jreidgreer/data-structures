@@ -24,8 +24,10 @@ HashTable.prototype.retrieve = function(k) {
   var result;
 
   currentBucket.each(function(touple) {
-    if (touple.get(0) === k) {
-      result = touple.get(1);
+    if (touple) {
+      if (touple.get(0) === k) {
+        result = touple.get(1);
+      }
     }
   });
 
@@ -35,40 +37,16 @@ HashTable.prototype.retrieve = function(k) {
 HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
   var currentBucket = this._storage.get(index);
-  var result;
 
   currentBucket.each(function(touple, bucketKey) {
+    console.log('Does the touple have a key that matches? ' + touple.get(0) + bucketKey);
     if (touple.get(0) === k) {
       currentBucket.set(bucketKey, undefined);
     }
   });
-};
 
-var Touple = function(key, value) {
-  var newTouple = LimitedArray(2);
-  newTouple.set(0, key); 
-  newTouple.set(1, value);
-
-  return newTouple;
-};
-
-var Bucket = function() {
-  var newBucket = LimitedArray(8);
-
-  newBucket.findAvailibleIndex = function() {
-    var foundFree = false;
-    var currentIndex = 0;
-
-    while (!foundFree) {
-      if (!this.get(currentIndex)) {
-        foundFree = true;
-      } else {
-        currentIndex++;
-      }
-    }
-    return currentIndex;
-  };
-  return newBucket;
+  this._storage.set(index, currentBucket); 
+  console.log('This is the new bucket.', this._storage.get(index));
 };
 
 

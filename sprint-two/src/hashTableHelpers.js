@@ -54,6 +54,56 @@ var getIndexBelowMaxForKey = function(str, max) {
   return hash % max;
 };
 
+var Touple = function(key, value) {
+  var newTouple = LimitedArray(2);
+  newTouple.set(0, key); 
+  newTouple.set(1, value);
+
+  return newTouple;
+};
+
+var Bucket = function() {
+  var newBucket = LimitedArray(8);
+
+  // A method on the Bucket constructor that searches through existing touples to see if key exists. 
+  newBucket.indexOf = function(key) {
+    var foundIndex = false;
+    var currentIndex = 0;
+
+    while (!foundIndex) {
+      if (this.get(currentIndex) === key) {
+        foundIndex = true;
+      } else {
+        currentIndex++;
+      }
+    }
+    return currentIndex;
+  };
+
+  // A method on the Bucket that finds the suitable index for assignment.
+  newBucket.findAvailibleIndex = function(k) {
+    var foundFree = false;
+    var currentIndex = 0;
+    var checkForIndex = this.indexOf(k);
+
+    if (checkForIndex !== -1) {
+      return checkForIndex;
+    } else {
+      while (!foundFree) {
+        if (this.get(currentIndex) === k) {
+          foundFree = true;
+        } else {
+          currentIndex++;
+        }
+      }
+      return currentIndex;
+    }
+    
+  };
+
+  return newBucket;
+};
+
 /*
  * Complexity: What is the time complexity of the above functions?
  */
